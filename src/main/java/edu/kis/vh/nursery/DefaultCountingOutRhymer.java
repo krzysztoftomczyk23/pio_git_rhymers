@@ -19,7 +19,7 @@ public class DefaultCountingOutRhymer {
 
     public void countIn(int in) {
         if (!isFull())
-            numbers[++total] = in;
+            getNumbers()[++total] = in;
     }
 
     public boolean callCheck() {
@@ -27,19 +27,22 @@ public class DefaultCountingOutRhymer {
     }
 
     public boolean isFull() {
-        return total == MAX_SIZE-1;
+        return total == MAX_SIZE -1;
     }
 
     protected int peekaboo() {
         if (callCheck())
             return IF_EMPTY;
-        return numbers[total];
+        return getNumbers()[total];
     }
 
     public int countOut() {
         if (callCheck())
             return IF_EMPTY;
-        return numbers[total--];
+        return getNumbers()[total--];
     }
 
+    public int[] getNumbers() {
+        return numbers;
+    }
 }
