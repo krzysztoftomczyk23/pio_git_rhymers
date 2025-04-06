@@ -1,21 +1,39 @@
 package edu.kis.vh.nursery;
 
-public class FIFORhymer extends defaultCountingOutRhymer {
+/**
+ *Klasa FIFORhymer rozszerzająca klasę DefaultCountingOutRhymer
+ *Klasa implemetuję strukturę FIFO (first in first out) czyli gdzie pierwszy dodany element jest pierwszy pobrany.
+ */
+public class FIFORhymer extends DefaultCountingOutRhymer {
 
-    public defaultCountingOutRhymer temp = new defaultCountingOutRhymer();
-    
+    private final DefaultCountingOutRhymer temp = new DefaultCountingOutRhymer();
+
+    /**
+     * Metoda pobiera wartość zgodnie z zasadą first in first out.
+     * Przenosi elementy do tymczasowego stosu w celu zachowania struktury FIFO.
+     *
+     * @return pierwsza wartość z kolejki FIFO
+     */
     @Override
     public int countOut() {
         while (!callCheck())
-            
-        temp.countIn(super.countOut());
-        
-        int ret = temp.countOut();
-        
-        while (!temp.callCheck())
-            
-        countIn(temp.countOut());
-        
-        return ret;
+            getTemp().countIn(super.countOut());
+
+        int returnedValue = getTemp().countOut();
+
+        while (!getTemp().callCheck())
+            countIn(getTemp().countOut());
+
+        return returnedValue;
+    }
+
+
+    /**
+     * Zwraca referencję do tymczasowego stosu
+     *
+     * @return obiekt temp, będący tymczasowym stosem
+     */
+    public DefaultCountingOutRhymer getTemp() {
+        return temp;
     }
 }
